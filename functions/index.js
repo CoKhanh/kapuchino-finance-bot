@@ -2,8 +2,11 @@ const TelegramBot = require('node-telegram-bot-api');
 const { google } = require("googleapis");
 
 const express = require('express')
+const serverless = require('serverless-http')
 const app = express()
 const port = 3000
+
+const router = express.Router();
 
 const main = async () => {
     const token = '6352634011:AAH6mm6mTKL6-9rpwLBC_UeYMDtTvZTuXtY'; // Replace with your own bot token
@@ -90,10 +93,14 @@ const main = async () => {
 
 main();
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`)
+// })
+
+app.use("/", router)
+
+module.exports.handler = serverless(app);
