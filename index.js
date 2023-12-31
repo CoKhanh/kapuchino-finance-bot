@@ -6,8 +6,6 @@ const serverless = require('serverless-http')
 const app = express()
 const port = 3000
 
-const router = express.Router();
-
 const main = async () => {
     const token = '6352634011:AAH6mm6mTKL6-9rpwLBC_UeYMDtTvZTuXtY'; // Replace with your own bot token
     const bot = new TelegramBot(token, { polling: true });
@@ -93,14 +91,10 @@ const main = async () => {
 
 main();
 
-router.get('/', (req, res) => {
-    res.send('Hello World!')
+app.get('/', (req, res) => {
+    res.send('Running!')
 })
 
-// app.listen(port, () => {
-//     console.log(`Example app listening on port ${port}`)
-// })
-
-app.use("/", router)
-
-module.exports.handler = serverless(app);
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
